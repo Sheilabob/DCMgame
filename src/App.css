@@ -62,7 +62,7 @@ h2 {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* .whiteNote {
+.whiteNote {
   font-weight: bold;
   position: absolute;
   color: black;
@@ -136,9 +136,9 @@ h2 {
 
 .keyboardSpaceHolder {
   height: 225px;
-} */
+}
 
-.whiteNote {
+/* .whiteNote {
   font-weight: bold;
   color: black;
   border-radius: 8px;
@@ -187,4 +187,4 @@ h2 {
 
 .holder {
   color: rgb(233, 231, 219);
-}
+} */

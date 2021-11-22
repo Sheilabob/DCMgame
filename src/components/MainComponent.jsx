@@ -30,12 +30,8 @@ class Main extends Component {
       return (
           <div>
             <Header />
-            <Switch>
-                <Route path='/home' component={HomePage} />
-                <Route exact path='/directory' render={() => <Directory  rooms={this.state.rooms} />} />
-                <Redirect to='/home' />
-            </Switch>
-              {/* <Keyboard /> */}
+
+            <Keyboard />
               {/* <div className="container">
                   <div className="row">
                     <KeyboardMenu />
