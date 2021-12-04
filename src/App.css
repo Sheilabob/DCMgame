@@ -1,18 +1,17 @@
-.App {
-  background-color: #c8eef5;
-}
-
 .photo {
   height: 300px;
 }
 
 body {
   font-family: "Open Sans", sans-serif;
+  background-color: #c8eef5;
 }
 
 h1,
 h2,
 h3,
+h4,
+h5,
 .card-body > .card-title {
   font-family: "Lobster", cursive;
 }
@@ -47,6 +46,10 @@ h2 {
   padding: 30px;
   background-image: linear-gradient(to right, #ac8c7d, #21afc8, #7c17b6);
   color: white;
+}
+
+.jumbotron h1 {
+  color: #cec8ff;
 }
 
 .jumbotron h2 {
@@ -136,6 +139,25 @@ h2 {
 
 .keyboardSpaceHolder {
   height: 225px;
+}
+
+.card {
+  background-color: #ddd1c3;
+  padding: 10px;
+}
+
+.noteNameCard {
+  width: 75px;
+  height: 175px;
+}
+
+.flashCard {
+  width: 100px;
+  height: 180px;
+}
+
+.responseCard {
+  width: 200px;
 }
 
 /* .whiteNote {
