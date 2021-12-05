@@ -16,24 +16,72 @@ class Keyboard extends Component {
         super(props);
         this.state = {
             noteCards: NOTECARDS,
+            currentCard: null,
             checkedCard: null,
+            randomNumber: Math.floor(Math.random() * (NOTECARDS.length)),
+            gameCards: []
         };
     }
 
+    renderStartGameButton(check) {
+        if (check.length == 0) {
+            return(
+                <Card>
+                        <Button onClick={() => this.onGameStart(this.state.noteCards[this.state.randomNumber])}>Start Game</Button>
+                    </Card>
+            )
+        } 
+    }
+
+    renderNextCardButton(check) {
+        if (check.length > 0 && this.state.checkedCard == "/assets/images/hooray.jpeg" ) {
+            return(
+                <Card>
+                <Button onClick={() => this.nextCard(this.state.gameCards[this.state.randomNumber])}>Next Card</Button>
+            </Card>
+            )
+        } 
+    }
+
     onGameStart(notecard) {
+        console.log(this.state.randomNumber);
+        this.setState({gameCards: this.state.noteCards.filter(note => note.id !== this.state.randomNumber)});
         this.setState({currentCard: notecard});
-        this.setState({checkedCard: null})
+        this.setState({checkedCard: null});
+        this.setState({ randomNumber: Math.floor(Math.random() * (this.state.gameCards.length)) });
+    }
+
+    nextCard(notecard) {
+        console.log(this.state.randomNumber);
+        this.setState({currentCard: notecard});
+        this.setState({checkedCard: null});
+        this.setState({gameCards: this.state.gameCards.filter(note => this.state.gameCards.indexOf(note) !== this.state.randomNumber)});
+        this.setState({ randomNumber: Math.floor(Math.random() * (this.state.gameCards.length-1)) });
+
+
     }
 
     checkTheCard(notecard, x) {
-        if (notecard.name === x) {
+       if (notecard.name === x) {
             this.setState({checkedCard: "/assets/images/hooray.jpeg"});
         } else {
             this.setState({checkedCard: "/assets/images/tryagain.jpeg"});
-        }
+        };
+        console.log(notecard);
+        console.log(this.state.gameCards);
     }
 
     renderResponse(checkedcard) {
+        if (checkedcard && this.state.gameCards.length === 0) {
+            return (
+                <Card>
+                    <CardImg className="responseCard" src={checkedcard} />
+                    <CardImg className="responseCard" src="assets/images/gameOver.jpeg" />
+                </Card>
+                
+            )
+        }
+        
         if (checkedcard) {
             return(
                 <Card>
@@ -58,7 +106,6 @@ class Keyboard extends Component {
 
     render() {
 
-        let randomNumber = Math.floor(Math.random() * (this.state.noteCards.length-1));
 
         return (
             <div className="container">
@@ -86,9 +133,9 @@ class Keyboard extends Component {
                     </div>
                     <div className="col">
                     
-                    <Card>
-                        <Button onClick={() => this.onGameStart(this.state.noteCards[randomNumber])}>Start Game</Button>
-                    </Card>
+                    {this.renderStartGameButton(this.state.gameCards)}
+                    {this.renderNextCardButton(this.state.gameCards)}                    
+
                     {this.renderCurrentCard(this.state.currentCard)}
                     {this.renderResponse(this.state.checkedCard)}
                     
