@@ -76,6 +76,25 @@ h2 {
   z-index: 50;
   background-color: rgb(233, 231, 219);
   margin-top: -5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.whiteNoteClicked {
+  font-weight: bold;
+  position: absolute;
+  color: black;
+  border-radius: 8px;
+  height: 238px;
+  width: 45px;
+  text-align: right;
+  z-index: 50;
+  background-color: rgb(223, 221, 235);
+  margin-top: -5px;
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
 }
 
 .blackNote {
@@ -109,31 +128,31 @@ h2 {
   margin-left: 251px;
 }
 
-.cNote {
+#cNote {
   margin-left: -1px;
 }
 
-.dNote {
+#dNote {
   margin-left: 43px;
 }
 
-.eNote {
+#eNote {
   margin-left: 87px;
 }
 
-.fNote {
+#fNote {
   margin-left: 131px;
 }
 
-.gNote {
+#gNote {
   margin-left: 175px;
 }
 
-.aNote {
+#aNote {
   margin-left: 219px;
 }
 
-.bNote {
+#bNote {
   margin-left: 262px;
 }
 
