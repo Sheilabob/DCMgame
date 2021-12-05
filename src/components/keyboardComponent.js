@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NOTECARDS } from '../shared/notecards.js';
+import { CUCKOO } from '../shared/cuckoo.js';
 import { Card, CardImg, CardTitle, Row, Col, Button } from 'reactstrap';
 
 
@@ -24,6 +25,7 @@ class Keyboard extends Component {
             startTheGame: true,
             counter: 0,
             score: 1,
+            cuckoo: CUCKOO
         };
     }
 
@@ -50,27 +52,30 @@ class Keyboard extends Component {
         } 
     }
 
-    playASong() {
+    playASong(song) {
         let start = 0;
-        playNote("G");
-        setTimeout(function(){ playNote("E"); }, start += 1000);
-        setTimeout(function(){ playNote("G"); }, start += 500);
-        setTimeout(function(){ playNote("E"); }, start += 1000);
-        setTimeout(function(){ playNote("D"); }, start += 500);
-        setTimeout(function(){ playNote("C"); }, start += 500);
-        setTimeout(function(){ playNote("D"); }, start += 500);
-        setTimeout(function(){ playNote("E"); }, start += 500);
-        setTimeout(function(){ playNote("C"); }, start += 1000);
-        setTimeout(function(){ playNote("G"); }, start += 500);
-        setTimeout(function(){ playNote("E"); }, start += 1000);
-        setTimeout(function(){ playNote("G"); }, start += 500);
-        setTimeout(function(){ playNote("E"); }, start += 1000);
-        setTimeout(function(){ playNote("D"); }, start += 500);
-        setTimeout(function(){ playNote("E"); }, start += 500);
-        setTimeout(function(){ playNote("D"); }, start += 500);
-        setTimeout(function(){ playNote("C"); }, start += 500);
+        let i=1
 
+        song.map(note => setTimeout(function(){ playNote(note.name); }, start += note.length));
     }
+        
+        // setTimeout(function(){ playNote("G"); }, start += 500);
+        // setTimeout(function(){ playNote("E"); }, start += 1000);
+        // setTimeout(function(){ playNote("D"); }, start += 500);
+        // setTimeout(function(){ playNote("C"); }, start += 500);
+        // setTimeout(function(){ playNote("D"); }, start += 500);
+        // setTimeout(function(){ playNote("E"); }, start += 500);
+        // setTimeout(function(){ playNote("C"); }, start += 1000);
+        // setTimeout(function(){ playNote("G"); }, start += 500);
+        // setTimeout(function(){ playNote("E"); }, start += 1000);
+        // setTimeout(function(){ playNote("G"); }, start += 500);
+        // setTimeout(function(){ playNote("E"); }, start += 1000);
+        // setTimeout(function(){ playNote("D"); }, start += 500);
+        // setTimeout(function(){ playNote("E"); }, start += 500);
+        // setTimeout(function(){ playNote("D"); }, start += 500);
+        // setTimeout(function(){ playNote("C"); }, start += 500);
+
+    
 
     renderNextCardButton(check) {
         if (check.length > 0 && this.state.checkedCard == "/assets/images/hooray.jpeg" ) {
@@ -188,7 +193,7 @@ class Keyboard extends Component {
 
                     </div>
                     <div className="col">
-                        <button onClick={this.playASong}>Play a Song</button>
+                        <button onClick={() => {this.playASong(this.state.cuckoo)}}>Play a Song</button>
                     
                     {this.renderStartGameButton(this.state.gameCards)}
                     {this.renderRestartGameButton(this.state.gameCards)}
