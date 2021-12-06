@@ -52,12 +52,25 @@ class Keyboard extends Component {
         } 
     }
 
+    // playAColor(i) {
+    //     this.setState({buttons: [...this.state.buttons.slice(0, i), false, ...this.state.buttons.slice(i+1)]})
+    //     setTimeout(() => {this.setState({buttons: NOTECARDS.map(card => card.button)})}, 1000)
+        
+    // }
+
     playASong(song) {
         let start = 0;
         let i=1
 
-        song.map(note => setTimeout(function(){ playNote(note.name); }, start += note.length));
+        song.map(note => setTimeout(() => {
+
+            this.setState({buttons: [...this.state.buttons.slice(0, note.i), false, ...this.state.buttons.slice(note.i+1)]});
+        setTimeout(() => {this.setState({buttons: NOTECARDS.map(card => card.button)})}, 400);
+
+            playNote(note.name); }, start += note.length));
     }
+
+    
         
         // setTimeout(function(){ playNote("G"); }, start += 500);
         // setTimeout(function(){ playNote("E"); }, start += 1000);
@@ -179,7 +192,7 @@ class Keyboard extends Component {
                             <button className="blackNote gSharp" id="gSharpNote" onClick={() => {playNote("gSharp")}}></button>
                             <button className="blackNote aSharp" id="aSharpNote" onClick={() => {playNote("aSharp")}}></button>
 
-                            <button className={this.state.buttons[0] === true ? "whiteNote": "whiteNoteClicked"} id = "cNote" onClick={() => {playNote("C"); this.checkTheCard(this.state.currentCard, "C"); this.changeTheNote(this.state.currentCard, "C", 0);}} ></button>
+                            <button className={this.state.buttons[0] === true ? "whiteNote": "whiteNoteClicked"} id = "cNote" onClick={() => {playNote("C"); this.checkTheCard(this.state.currentCard, "C"); this.changeTheNote(this.state.currentCard, "C", 0)}} ></button>
                             <button className={this.state.buttons[1] === true ? "whiteNote": "whiteNoteClicked"} id = "dNote" onClick={() => {playNote("D"); this.checkTheCard(this.state.currentCard, "D"); this.changeTheNote(this.state.currentCard, "D", 1);}} ></button>
                             <button className={this.state.buttons[2] === true ? "whiteNote": "whiteNoteClicked"} id = "eNote" onClick={() => {playNote("E"); this.checkTheCard(this.state.currentCard, "E"); this.changeTheNote(this.state.currentCard, "E", 2);}} ></button>
                             <button className={this.state.buttons[3] === true ? "whiteNote": "whiteNoteClicked"} id = "fNote" onClick={() => {playNote("F"); this.checkTheCard(this.state.currentCard, "F"); this.changeTheNote(this.state.currentCard, "F", 3);}} ></button>
