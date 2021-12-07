@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { NOTECARDS } from '../shared/notecards.js';
-import { CUCKOO } from '../shared/cuckoo.js';
 import { Card, CardImg, Button } from 'reactstrap';
 
 
@@ -10,20 +8,19 @@ function playNote(x) {
     note.play();
 }
 
-class Keyboard extends Component {
+class CardGame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteCards: NOTECARDS,
-            buttons: NOTECARDS.map(card => card.button),
+            noteCards: this.props.noteCards,
+            buttons: this.props.noteCards.map(card => card.button),
             currentCard: null,
             checkedCard: null,
-            randomNumber: Math.floor(Math.random() * (NOTECARDS.length)),
+            randomNumber: Math.floor(Math.random() * (this.props.noteCards.length)),
             gameCards: [],
             startTheGame: true,
             counter: 0,
             score: 1,
-            cuckoo: CUCKOO
         };
     }
 
@@ -45,18 +42,6 @@ class Keyboard extends Component {
                 </div>
             )
         } 
-    }
-
-    playASong(song) {
-        let start = 0;
-        let i=1
-
-        song.map(note => setTimeout(() => {
-
-            this.setState({buttons: [...this.state.buttons.slice(0, note.i), false, ...this.state.buttons.slice(note.i+1)]});
-        setTimeout(() => {this.setState({buttons: NOTECARDS.map(card => card.button)})}, 400);
-
-            playNote(note.name); }, start += note.length));
     }
     
     renderNextCardButton(check) {
@@ -172,12 +157,9 @@ class Keyboard extends Component {
                         </Card> 
                     </div>
                 </div>
-                <div className="row">
-                    <button onClick={() => {this.playASong(this.state.cuckoo)}}>Play a Song</button>
-                </div>
             </div>
         );
     }
 }
 
-export default Keyboard;
+export default CardGame;
