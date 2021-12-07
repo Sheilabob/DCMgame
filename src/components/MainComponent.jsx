@@ -1,8 +1,6 @@
 import { Component} from 'react';
 import Keyboard from './keyboardComponent';
 import Header from './HeaderComponent';
-import Footer from './FooterComponent';
-
 
 
 class Main extends Component {

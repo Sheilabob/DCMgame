@@ -176,7 +176,27 @@ h2 {
 }
 
 .responseCard {
-  width: 200px;
+  width: 90px;
+  margin: 5px;
+}
+
+.startcard {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 250px;
+  width: 100%;
+}
+
+.keyboardCard {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 250px;
+  width: 100%;
+}
+
+.gameoverCard {
+  width: 60px;
+  margin: 5px;
 }
 
 /* .whiteNote {
