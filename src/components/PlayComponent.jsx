@@ -15,11 +15,10 @@ class PlayASong extends Component {
         this.state = {
             noteCards: this.props.noteCards,
             buttons: this.props.noteCards.map(card => card.button),
-            cuckoo: CUCKOO
+            cuckoo: CUCKOO,
+            songNote: 0
         };
     }
-
-
 
     playASong(song) {
         let start = 0;
@@ -31,6 +30,22 @@ class PlayASong extends Component {
         setTimeout(() => {this.setState({buttons: this.state.noteCards.map(card => card.button)})}, 400);
 
             playNote(note.name); }, start += note.length));
+    }
+
+    checkANote(song, note) {
+        if (this.state.songNote < song.length) {
+        let currentNote = song[this.state.songNote].name
+        console.log(currentNote)
+        if (currentNote === note) {
+            this.setState({songNote: this.state.songNote += 1})
+            if (this.state.songNote == song.length) {
+                console.log("hooray");
+            }
+        } else {
+            console.log("mistake");
+        }
+        } else { console.log("end of song");}
+
     }
     
 
@@ -60,13 +75,13 @@ class PlayASong extends Component {
                                 <button className="blackNote gSharp" id="gSharpNote" onClick={() => {playNote("gSharp")}}></button>
                                 <button className="blackNote aSharp" id="aSharpNote" onClick={() => {playNote("aSharp")}}></button>
 
-                                <button className={this.state.buttons[0] === true ? "whiteNote": "whiteNoteClicked"} id = "cNote" onClick={() => {playNote("C")}} ></button>
-                                <button className={this.state.buttons[1] === true ? "whiteNote": "whiteNoteClicked"} id = "dNote" onClick={() => {playNote("D")}} ></button>
-                                <button className={this.state.buttons[2] === true ? "whiteNote": "whiteNoteClicked"} id = "eNote" onClick={() => {playNote("E")}} ></button>
-                                <button className={this.state.buttons[3] === true ? "whiteNote": "whiteNoteClicked"} id = "fNote" onClick={() => {playNote("F")}} ></button>
-                                <button className={this.state.buttons[4] === true ? "whiteNote": "whiteNoteClicked"} id = "gNote" onClick={() => {playNote("G")}} ></button>
-                                <button className={this.state.buttons[5] === true ? "whiteNote": "whiteNoteClicked"} id = "aNote" onClick={() => {playNote("A")}} ></button>
-                                <button className={this.state.buttons[6] === true ? "whiteNote": "whiteNoteClicked"} id = "bNote" onClick={() => {playNote("B")}} ></button>
+                                <button className={this.state.buttons[0] === true ? "whiteNote": "whiteNoteClicked"} id = "cNote" onClick={() => {playNote("C"); this.checkANote(this.state.cuckoo, "C")}} ></button>
+                                <button className={this.state.buttons[1] === true ? "whiteNote": "whiteNoteClicked"} id = "dNote" onClick={() => {playNote("D"); this.checkANote(this.state.cuckoo, "D")}} ></button>
+                                <button className={this.state.buttons[2] === true ? "whiteNote": "whiteNoteClicked"} id = "eNote" onClick={() => {playNote("E"); this.checkANote(this.state.cuckoo, "E")}} ></button>
+                                <button className={this.state.buttons[3] === true ? "whiteNote": "whiteNoteClicked"} id = "fNote" onClick={() => {playNote("F"); this.checkANote(this.state.cuckoo, "F")}} ></button>
+                                <button className={this.state.buttons[4] === true ? "whiteNote": "whiteNoteClicked"} id = "gNote" onClick={() => {playNote("G"); this.checkANote(this.state.cuckoo, "G")}} ></button>
+                                <button className={this.state.buttons[5] === true ? "whiteNote": "whiteNoteClicked"} id = "aNote" onClick={() => {playNote("A"); this.checkANote(this.state.cuckoo, "A")}} ></button>
+                                <button className={this.state.buttons[6] === true ? "whiteNote": "whiteNoteClicked"} id = "bNote" onClick={() => {playNote("B"); this.checkANote(this.state.cuckoo, "B")}} ></button>
                             </div>
                         </Card>
                     </div>
