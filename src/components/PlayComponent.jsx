@@ -16,13 +16,13 @@ class PlayASong extends Component {
             noteCards: this.props.noteCards,
             buttons: this.props.noteCards.map(card => card.button),
             cuckoo: CUCKOO,
-            songNote: 0
+            songNote: 0,
+            mistake: false,
         };
     }
 
     playASong(song) {
         let start = 0;
-        let i=1
 
         song.map(note => setTimeout(() => {
 
@@ -32,24 +32,32 @@ class PlayASong extends Component {
             playNote(note.name); }, start += note.length));
     }
 
+
     checkANote(song, note) {
         if (this.state.songNote < song.length) {
         let currentNote = song[this.state.songNote].name
-        console.log(currentNote)
         if (currentNote === note) {
             this.setState({songNote: this.state.songNote += 1})
-            if (this.state.songNote == song.length) {
+            if (this.state.songNote === song.length) {
                 console.log("hooray");
             }
         } else {
             console.log("mistake");
+            this.setState({mistake: true})
         }
         } else { console.log("end of song");}
-
     }
-    
 
-
+   renderOopsGameOver(mistake) {
+       if (mistake) {
+           return(
+           <div>
+               <h2>Oops! Mistake!</h2>
+               <h4> You got {this.state.songNote} notes of the song! </h4>
+           </div>
+       )
+       }
+   }
 
 
     changeTheNote(notecard, x, i) {
@@ -88,6 +96,7 @@ class PlayASong extends Component {
                 </div>
                 <div className="row">
                 <button onClick={() => {this.playASong(this.state.cuckoo)}}>Play a Song</button>
+                {this.renderOopsGameOver(this.state.mistake)}
                 </div>
             </div>
         );
