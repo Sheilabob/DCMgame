@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardImg, Button } from 'reactstrap';
 
 
-
-function playNote(x) {
-    const note = new Audio("assets/sound/" + x + ".mp3");
-    note.play();
-}
-
 class CardGame extends Component {
     constructor(props) {
         super(props);
@@ -115,25 +109,21 @@ class CardGame extends Component {
     }
 
     render() {
+
+        const keys = this.props.pianokeys.map((key, index) => {
+            return (
+                <button className={key.className} id={key.id} onClick={() => {key.playNote(); this.checkTheCard(this.state.currentCard, key.noteName, index)}}>
+                </button>
+            )
+        })
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4 m-1 here">
                         <Card className="keyboardCard">
                             <div id="keyboardCard">
-                                <button className="blackNote dSharp" id="dSharpNote" onClick={() => {playNote("dSharp")}}></button>
-                                <button className="blackNote cSharp" id="cSharpNote" onClick={() => {playNote("cSharp")}}></button>
-                                <button className="blackNote fSharp" id="fSharpNote" onClick={() => {playNote("fSharp")}}></button>
-                                <button className="blackNote gSharp" id="gSharpNote" onClick={() => {playNote("gSharp")}}></button>
-                                <button className="blackNote aSharp" id="aSharpNote" onClick={() => {playNote("aSharp")}}></button>
-
-                                <button className={this.state.buttons[0] === true ? "whiteNote": "whiteNoteClicked"} id = "cNote" onClick={() => {playNote("C"); this.checkTheCard(this.state.currentCard, "C"); this.changeTheNote(this.state.currentCard, "C", 0)}} ></button>
-                                <button className={this.state.buttons[1] === true ? "whiteNote": "whiteNoteClicked"} id = "dNote" onClick={() => {playNote("D"); this.checkTheCard(this.state.currentCard, "D"); this.changeTheNote(this.state.currentCard, "D", 1);}} ></button>
-                                <button className={this.state.buttons[2] === true ? "whiteNote": "whiteNoteClicked"} id = "eNote" onClick={() => {playNote("E"); this.checkTheCard(this.state.currentCard, "E"); this.changeTheNote(this.state.currentCard, "E", 2);}} ></button>
-                                <button className={this.state.buttons[3] === true ? "whiteNote": "whiteNoteClicked"} id = "fNote" onClick={() => {playNote("F"); this.checkTheCard(this.state.currentCard, "F"); this.changeTheNote(this.state.currentCard, "F", 3);}} ></button>
-                                <button className={this.state.buttons[4] === true ? "whiteNote": "whiteNoteClicked"} id = "gNote" onClick={() => {playNote("G"); this.checkTheCard(this.state.currentCard, "G"); this.changeTheNote(this.state.currentCard, "G", 4);}} ></button>
-                                <button className={this.state.buttons[5] === true ? "whiteNote": "whiteNoteClicked"} id = "aNote" onClick={() => {playNote("A"); this.checkTheCard(this.state.currentCard, "A"); this.changeTheNote(this.state.currentCard, "A", 5);}} ></button>
-                                <button className={this.state.buttons[6] === true ? "whiteNote": "whiteNoteClicked"} id = "bNote" onClick={() => {playNote("B"); this.checkTheCard(this.state.currentCard, "B"); this.changeTheNote(this.state.currentCard, "B", 6);}} ></button>
+                                {keys}
                             </div>
                         </Card>
                     </div>

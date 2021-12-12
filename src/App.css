@@ -68,33 +68,33 @@ h2 {
 .whiteNote {
   font-weight: bold;
   position: absolute;
-  color: black;
+  color: black !important;
   border-radius: 8px;
   height: 238px;
   width: 45px;
   text-align: right;
   z-index: 50;
-  background-color: rgb(233, 231, 219);
+  background-color: rgb(233, 231, 219) !important;
   margin-top: -5px;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
 .whiteNoteClicked {
   font-weight: bold;
   position: absolute;
-  color: black;
+  color: black !important;
   border-radius: 8px;
   height: 238px;
-  width: 45px;
+  width: 45px !important;
   text-align: right;
   z-index: 50;
-  background-color: rgb(223, 221, 235);
+  background-color: rgb(223, 221, 235) !important;
   margin-top: -5px;
   box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
     -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
     inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4) !important;
 }
 
 .blackNote {
@@ -104,27 +104,27 @@ h2 {
   width: 26px;
   height: 172px;
   z-index: 55;
-  background-color: black;
+  background-color: black !important;
   margin-top: -5px;
 }
 
-.cSharp {
+#cSharpNote {
   margin-left: 31px;
 }
 
-.dSharp {
+#dSharpNote {
   margin-left: 75px;
 }
 
-.fSharp {
+#fSharpNote {
   margin-left: 163px;
 }
 
-.gSharp {
+#gSharpNote {
   margin-left: 207px;
 }
 
-.aSharp {
+#aSharpNote {
   margin-left: 251px;
 }
 

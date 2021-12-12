@@ -4,13 +4,15 @@ import Header from './HeaderComponent';
 import Menu from './MenuComponent';
 import { NOTECARDS } from '../shared/notecards.js';
 import PlayASong from './PlayComponent.jsx';
+import { PIANOKEYS } from '../shared/pianokeys';
 
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteCards: NOTECARDS
+            noteCards: NOTECARDS,
+            pianokeys: PIANOKEYS
             };
         };
 
@@ -19,7 +21,7 @@ class Main extends Component {
       return (
           <div>
             <Header />
-            <CardGame noteCards={this.state.noteCards}/>
+            <CardGame pianokeys = {this.state.pianokeys} noteCards={this.state.noteCards}/>
             <PlayASong noteCards={this.state.noteCards}/>
             <Menu />
           </div>
