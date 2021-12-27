@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { CUCKOO } from '../shared/cuckoo.js';
-import { Card, CardImg, Button } from 'reactstrap';
+import { Card, Button } from 'reactstrap';
 
 
 
 function playNote(x) {
     const note = new Audio("assets/sound/" + x + ".mp3");
     note.play();
-}
+};
 
 class PlayASong extends Component {
     constructor(props) {
@@ -18,47 +18,74 @@ class PlayASong extends Component {
             cuckoo: CUCKOO,
             songNote: 0,
             mistake: false,
+            endofsong: false
         };
     }
 
     playASong(song) {
         let start = 0;
-
-        song.map(note => setTimeout(() => {
-
-            this.setState({buttons: [...this.state.buttons.slice(0, note.i), false, ...this.state.buttons.slice(note.i+1)]});
-        setTimeout(() => {this.setState({buttons: this.state.noteCards.map(card => card.button)})}, 400);
-
-            playNote(note.name); }, start += note.length));
+        song.map(note => setTimeout(
+            () => {
+                this.setState({buttons: [...this.state.buttons.slice(0, note.i), false, ...this.state.buttons.slice(note.i+1)]});
+                setTimeout(() => {this.setState({buttons: this.state.noteCards.map(card => card.button)})}, 400);
+                playNote(note.name); 
+            },
+            start += note.length
+        ));
     }
 
-
     checkANote(song, note) {
-        if (this.state.songNote < song.length) {
-        let currentNote = song[this.state.songNote].name
-        if (currentNote === note) {
-            this.setState({songNote: this.state.songNote += 1})
-            if (this.state.songNote === song.length) {
-                console.log("hooray");
-            }
-        } else {
-            console.log("mistake");
-            this.setState({mistake: true})
+        if (this.state.mistake === true) {
+            this.setState({
+                noteCards: this.props.noteCards,
+                buttons: this.props.noteCards.map(card => card.button),
+                cuckoo: CUCKOO,
+                songNote: 0,
+                mistake: false,
+                endofsong: false
+            });
         }
-        } else { console.log("end of song");}
+        else if (this.state.songNote < song.length) {
+            let currentNote = song[this.state.songNote].name
+            if (currentNote === note) {
+                this.setState({songNote: this.state.songNote +1})
+                if (this.state.songNote === song.length-1) {
+                    this.setState({endofsong: true});
+                }
+            } else {
+                this.setState({mistake: true});
+            }
+        }
     }
 
    renderOopsGameOver(mistake) {
-       if (mistake) {
-           return(
-           <div>
-               <h2>Oops! Mistake!</h2>
-               <h4> You got {this.state.songNote} notes of the song! </h4>
-           </div>
-       )
-       }
-   }
+        if (mistake) {
+            return(
+                <div>
+                    <h2>Oops! Mistake!</h2>
+                    <h4> You got {this.state.songNote} notes of the song! </h4>
+                </div>
+            );
+        } else {
+           return (
+               <div></div>
+           );
+        }
+    }
 
+   renderYayGameOver(endofsong) {
+    if (endofsong) {
+        return(
+            <div>
+                <h2>Yay!  You got the whole song!</h2>
+            </div>
+        );
+    } else {
+        return (
+            <div></div>
+        );
+    }
+}
 
     changeTheNote(notecard, x, i) {
         if (notecard) {
@@ -95,8 +122,21 @@ class PlayASong extends Component {
                     </div>
                 </div>
                 <div className="row">
-                <button onClick={() => {this.playASong(this.state.cuckoo)}}>Play a Song</button>
-                {this.renderOopsGameOver(this.state.mistake)}
+                    Directions: Listen to the song.  Then, try to play back as many notes as you can.  If you mess up, just listen again to start over. Good Luck!
+                    <Button color='info' onClick={() => {
+                        this.playASong(this.state.cuckoo);
+                        this.setState({
+                            noteCards: this.props.noteCards,
+                            buttons: this.props.noteCards.map(card => card.button),
+                            cuckoo: CUCKOO,
+                            songNote: 0,
+                            mistake: false,
+                            endofsong: false
+                        });
+                        }}>Listen
+                    </Button>
+                    {this.renderOopsGameOver(this.state.mistake)}
+                    {this.renderYayGameOver(this.state.endofsong)}
                 </div>
             </div>
         );

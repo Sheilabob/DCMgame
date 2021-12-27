@@ -8,8 +8,9 @@ class CardGame extends Component {
         this.state = {
             noteCards: this.props.noteCards,
             buttons: this.props.noteCards.map(card => card.button),
-            currentCard: null,
+            currentCard: {},
             checkedCard: null,
+            checkedKey: null,
             randomNumber: Math.floor(Math.random() * (this.props.noteCards.length)),
             gameCards: [],
             startTheGame: true,
@@ -19,31 +20,43 @@ class CardGame extends Component {
     }
 
     renderStartGameButton(check) {
-        if (check.length == 0 && this.state.startTheGame == true) {
+        if (check.length === 0 && this.state.startTheGame === true) {
             return(
-                <Button onClick={() => this.onGameStart(this.state.noteCards[this.state.randomNumber])}>Start Game</Button>
-            )
-        } 
+                <Button color='info' onClick={() => this.onGameStart(this.state.noteCards[this.state.randomNumber])}>Start Game</Button>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
 
     renderRestartGameButton(check) {
-        if (check.length == 0 && this.state.checkedCard == "/assets/images/hooray.jpeg") {
+        if (check.length === 0 && this.state.checkedCard === "/assets/images/hooray.jpeg") {
             return(
                 <div>
                     <CardImg className="gameoverCard" src="assets/images/gameOver.jpeg" />
                     <h6>Points Earned: {this.state.score-this.state.counter}</h6>
-                    <Button onClick={() => this.onGameStart(this.state.noteCards[this.state.randomNumber])}>Restart Game</Button>
+                    <Button color='info' onClick={() => this.onGameStart(this.state.noteCards[this.state.randomNumber])}>Restart Game</Button>
                 </div>
-            )
-        } 
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
     
     renderNextCardButton(check) {
-        if (check.length > 0 && this.state.checkedCard == "/assets/images/hooray.jpeg" ) {
+        if (check.length > 0 && this.state.checkedCard === "/assets/images/hooray.jpeg" ) {
             return(
-                <Button onClick={() => this.nextCard(this.state.gameCards[this.state.randomNumber])}>Next Card</Button>
-            )
-        } 
+                <Button color='info' onClick={() => this.nextCard(this.state.gameCards[this.state.randomNumber])}>Next Card</Button>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
 
     onGameStart(notecard) {
@@ -56,7 +69,6 @@ class CardGame extends Component {
         this.setState({buttons: this.state.noteCards.map(card => card.button)});
         this.setState({counter: 0});
         this.setState({ score: 1});
-
     }
 
     nextCard(notecard) {
@@ -68,13 +80,13 @@ class CardGame extends Component {
         this.setState({buttons: this.state.noteCards.map(card => card.button)})
         this.setState({score: this.state.score + 1});
         console.log(this.state.buttons)
-
     }
 
     checkTheCard(notecard, x) {
        if (notecard && this.state.checkedCard !== "/assets/images/hooray.jpeg") {
            if (notecard.name === x) {
             this.setState({checkedCard: "/assets/images/hooray.jpeg"});
+            this.setState({checkedKey: x})
             } else {
             this.setState({checkedCard: "/assets/images/tryagain.jpeg"});
             this.setState({counter: this.state.counter + 1});
@@ -96,7 +108,7 @@ class CardGame extends Component {
         if (checkedcard) {
             return(
                 <CardImg className="responseCard" src={checkedcard} />
-            )   
+            );
         }
     }
 
@@ -104,7 +116,7 @@ class CardGame extends Component {
         if (notecard) {
             return(
                 <CardImg className="flashCard" src={notecard.image} />
-            )
+            );
         }
     }
 
@@ -112,10 +124,17 @@ class CardGame extends Component {
 
         const keys = this.props.pianokeys.map((key, index) => {
             return (
-                <button className={key.className} id={key.id} onClick={() => {key.playNote(); this.checkTheCard(this.state.currentCard, key.noteName, index)}}>
+                <button 
+                    className={this.state.checkedKey === this.state.currentCard.name && key.noteName === this.state.checkedKey ? 'whiteNoteClicked' : key.className} 
+                    id={key.id} 
+                    onClick={() => {
+                        key.playNote(); 
+                        this.checkTheCard(this.state.currentCard, key.noteName, index)}
+                    }
+                >
                 </button>
-            )
-        })
+            );
+        });
 
         return (
             <div className="container">
@@ -145,6 +164,7 @@ class CardGame extends Component {
                                 </div>
                             </div>
                         </Card> 
+                        Directions: Look at the note displayed on the flashcard.  Find that note on the piano keyboard and play it. Don't worry if you miss, just try again.  Continue to the next card once you get it right.  Good Luck!
                     </div>
                 </div>
             </div>
